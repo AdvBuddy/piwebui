@@ -1,0 +1,10 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+faster-whisper>=1.1.0
+
+# PyAV 16.0 removed the `metadata_errors` kwarg from av.open(), but faster-whisper
+# still passes it when decoding audio. With av>=16 every /transcribe call dies with
+# `TypeError: open() got an unexpected keyword argument 'metadata_errors'`.
+# Pin below 16 until faster-whisper catches up.
+av>=11,<16

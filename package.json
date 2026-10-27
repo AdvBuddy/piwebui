@@ -1,0 +1,32 @@
+{
+  "name": "piwebui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Remote web UI for a local pi coding agent",
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "server",
+    "agent-host",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=web",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:agent": "npm run dev --workspace=agent-host",
+    "build": "npm run build --workspace=web && npm run build --workspace=server && npm run build --workspace=agent-host",
+    "build:web": "npm run build --workspace=web",
+    "build:server": "npm run build --workspace=server",
+    "build:agent": "npm run build --workspace=agent-host",
+    "start:server": "npm run start --workspace=server",
+    "start:agent": "npm run start --workspace=agent-host",
+    "pack": "node scripts/pack.mjs",
+    "pack:fast": "node scripts/pack.mjs --skip-build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

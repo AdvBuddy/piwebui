@@ -1,0 +1,19 @@
+{
+	"name": "piwebui",
+	"short_name": "piwebui",
+	"description": "远程访问本机的 pi coding agent",
+	"start_url": "/",
+	"scope": "/",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"background_color": "#0a0c10",
+	"theme_color": "#0a0c10",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}

@@ -1,0 +1,38 @@
+[Unit]
+Description=piwebui relay server (HTTP + WebSocket)
+Documentation=https://github.com/earendil-works/pi
+After=network-online.target
+Wants=network-online.target
+# whisper 是可选依赖，但它先起来能让第一次语音请求不至于 502
+After=piwebui-whisper.service
+
+[Service]
+Type=simple
+User=piwebui
+Group=piwebui
+WorkingDirectory=/opt/piwebui/server
+EnvironmentFile=/opt/piwebui/server/.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node dist/index.js
+Restart=always
+RestartSec=3
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+# 加固：服务只需要读自己的目录
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ReadWritePaths=/opt/piwebui/server
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=piwebui
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,35 @@
+[Unit]
+Description=piwebui whisper transcription sidecar (faster-whisper)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=piwebui
+Group=piwebui
+WorkingDirectory=/opt/piwebui/whisper
+EnvironmentFile=/opt/piwebui/whisper/.env
+Environment=PYTHONUNBUFFERED=1
+# ProtectHome=true hides the home directory, so model caches must live under /opt.
+Environment=HF_HOME=/opt/piwebui/whisper/.hf-cache
+ExecStart=/opt/piwebui/whisper/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8001 --workers 1
+Restart=always
+RestartSec=5
+# 首次启动要下载模型，给足时间
+TimeoutStartSec=600
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/piwebui/whisper
+# 模型缓存默认落在 ~/.cache/huggingface，若改到别处记得加进这里
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=piwebui-whisper
+
+[Install]
+WantedBy=multi-user.target

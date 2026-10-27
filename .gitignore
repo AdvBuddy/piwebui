@@ -1,0 +1,32 @@
+node_modules/
+dist/
+server/public/
+.env
+.env.local
+*.log
+agent.out.log
+agent.err.log
+agent-host/agent.log
+
+# python
+__pycache__/
+*.pyc
+.venv/
+whisper/.hf-cache/
+whisper/models/
+
+# os
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# test artifacts
+shots/
+e2e-output.txt
+
+# deploy bundle
+.pack/
+
+# local tool state
+.workbuddy/
